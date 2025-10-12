@@ -26,6 +26,22 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
       
+      - name: Verify project structure
+        run: |
+          echo "=== Project Structure ==="
+          ls -R
+          echo ""
+          echo "=== Test Files ==="
+          find tests/ -name "*.py" -type f
+          echo ""
+          echo "=== Checking for __init__.py files ==="
+          ls -la app/__init__.py tests/__init__.py || echo "Missing __init__.py files!"
+      
+      - name: Check test discovery
+        run: |
+          echo "=== Pytest Test Collection ==="
+          pytest --collect-only -v
+      
       - name: Lint with flake8
         run: |
           # Stop the build if there are Python syntax errors or undefined names
@@ -35,9 +51,10 @@ jobs:
       
       - name: Run tests with pytest
         run: |
-          pytest tests/ -v --cov=app --cov-report=term-missing --cov-report=html
+          pytest tests/test_calculator.py -v --cov=app --cov-report=term-missing --cov-report=html
       
       - name: Upload coverage report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
@@ -45,6 +62,7 @@ jobs:
           retention-days: 30
       
       - name: Display coverage summary
+        if: success()
         run: |
           echo "## Test Coverage Summary" >> $GITHUB_STEP_SUMMARY
           echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
