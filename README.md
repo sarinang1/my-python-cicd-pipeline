@@ -512,3 +512,4 @@ This project demonstrates modern DevOps practices using:
 **Made with ❤️ for learning CI/CD with GitHub Actions**
 
 *Questions? Issues? Open an issue on GitHub!*
+
