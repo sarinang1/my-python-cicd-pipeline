@@ -5,6 +5,8 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# github marketplace has docker actions to help build and push docker images, uses are pre-built actions
+
 jobs:
   docker:
     runs-on: ubuntu-latest

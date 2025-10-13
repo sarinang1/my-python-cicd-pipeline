@@ -52,6 +52,14 @@ class TestCalculatorMethods:
         assert calculator.divide(9, 3) == 3
         assert calculator.divide(7, 2) == 3.5
         assert calculator.divide(-10, 2) == -5
+
+    def test_power(self, calculator):
+        """Test power operation"""
+        assert calculator.power(2, 3) == 8
+        assert calculator.power(5, 2) == 25
+        assert calculator.power(10, 0) == 1
+        assert calculator.power(3, 4) == 81
+
     
     def test_divide_by_zero(self, calculator):
         """Test division by zero raises ValueError"""
@@ -132,6 +140,19 @@ class TestAPIEndpoints:
         assert response.status_code == 200
         data = response.get_json()
         assert data['result'] == 3.5
+
+
+    def test_power_endpoint(self, client):
+        """Test power endpoint"""
+        response = client.get('/power/2/3')
+        assert response.status_code == 200
+
+        data = response.get_json()
+        assert data['result'] == 8
+        assert data['operation'] == 'power'
+        assert data['base'] == 2
+        assert data['exponent'] == 3
+
 
 
 # Test Edge Cases

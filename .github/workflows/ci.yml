@@ -1,11 +1,13 @@
 name: CI - Test and Lint
 
+#whenever you push or pull request, CI runs
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
+# github set up python runners, runners are ubuntu
 jobs:
   test:
     runs-on: ubuntu-latest
